@@ -240,7 +240,12 @@ Solution:
     "NaN2"
     NaN
  ``` 
-* 
+* The first one uses type coercion when summing `1` + `"2"`. `1` will be converted to a string type and concatenated with `"2"` which results in `"12"`. `"12"` is then concatenated with `"2"` to produce `"112"`.
+* This problem uses a unary operator (`+`) to convert the second value (`"2"`) into a number type. `1` will be added to `2` to result in `3`, and then converted back to a string type for concatenation with the final `"2"`.
+* This problem uses a unary operator (`-`) to convert the second value (`1`) into a number type. `1` will be subtracted from `1` to result in `0`, and then converted back to a string type for concatenation with the final `"2"`.
+* This problem uses a unary operator (`+`) to convert the first value (`"1"`) into a number type, **however**, it is immediately converted back into a string type for concatenation with the second value `"1"`, resulting in `"112"`, and then concatenated with the final `"2"`.
+* When a subtraction operand (`-`) is used with a string type, it will result in `NaN`. This means that `"A" - "B"` will result in `NaN`, and then through type coercion is converted to a string and concatenated with the final `"2"`.
+* Similar to the previous problem, `"A" - "B"` wil result in `NaN`, **however**, any number that has an operation with `NaN` will result in `NaN`. Because `2` is a number, the result will be `NaN`. 
 
 ##
 
@@ -264,6 +269,62 @@ Solution:
 };
 
  ``` 
-* Stack overflow is caused when the call stack has too many 
+* Stack overflow is caused when the **call stack** allocates more memory than it is able to the call stack. 
+* It is important to know that the call stack uses a Last In First Out (LIFO) method. This means that in the case of recursive functions, the call stack will keep "stacking" calls until the final function is called and/or it runs out of memory
+* To resolve this issue, `setTimeout` is used to utilize the **event queue** and the **event loop**.
+  * The event loop monitors both the event queue and the call stack. Once the call stack is clear (meaning the function is finished processing the list item and has executed in this case), the event queue will push the next recursive function call onto the call stack, and so on. 
+
+##
+
+### Question 15
+![Question 15](https://user-images.githubusercontent.com/80487497/136264157-32a60e91-37ad-4ed0-a9ca-2203e5aeed8e.png)
+
+
+
+Solution:
+* An example of closures is:
+ ```javascript
+const globalVar = "xyz";
+
+(function outerFunc(outerArg) {
+    const outerVar = 'a';
+    
+    (function innerFunc(innerArg) {
+    const innerVar = 'b';
+    
+    console.log(
+        "outerArg = " + outerArg + "\n" +
+        "innerArg = " + innerArg + "\n" +
+        "outerVar = " + outerVar + "\n" +
+        "innerVar = " + innerVar + "\n" +
+        "globalVar = " + globalVar);
+    
+    })(456);
+})(123);
+ ``` 
+ * Console log output:
+ ```javascript
+outerArg = 123
+innerArg = 456
+outerVar = a
+innerVar = b
+globalVar = xyz
+ ``` 
+* A closure is the ability of a function to maintain access to variables in its own scope, in the scope of the function it is enclosed by, and the global scope
+* In the example above, `123` is used as the argument for the IIFE `outerFunc`, `456` is used as the argument for the IIFE `innerFunc`.
+* As can be seen, the `innerFunc` has access to all the arguments and variables defined in itself, the `outerFunc`, and the global scope.
+
+##
+
+### Question 16
+
+
+Solution:
+* :
+ ```javascript
+
+ ``` 
+
+* 
 
 ##
